@@ -1,0 +1,73 @@
+
+<html>
+   <head>
+      <title>Test alerts</title>
+<script>
+function myPrompt() {
+  let text;
+  let person = prompt("Please enter your name:", "Marian College");
+  if (person == null || person == "") {
+    text = "User cancelled the prompt.";
+  } else {
+    text = "Hello " + person + "! How are you today?";
+  }
+  document.getElementById("prompt_demo").innerHTML = text;
+}
+function myconfirm() {
+  var txt;
+  if (confirm("Press a button!")) {
+    txt = "You pressed OK!";
+  } else {
+    txt = "You pressed Cancel!";
+  }
+  document.getElementById("confirm_demo").innerHTML = txt;
+}
+function myFunction() {
+  alert("I am an alert box!");
+}
+function displayAlert() {
+        var value = document.getElementById("name").value;
+        alert("Hello " + value + ", share this practice page and share your knowledge");
+		 document.getElementById("alert_demo").innerHTML="Alert is given to "+ value;
+        document.getElementById("name").value = "";
+    }
+ function showPrompt()
+ {
+  var x;
+
+  var name=prompt("Please enter your name","Marian College");
+
+  if (name!=null)
+  {
+    x="Hello " + name + "! How are you today?";
+    document.getElementById("prompt_demo").innerHTML=x;
+  }
+ }
+</script>
+</head>
+<body>
+<h1> Sample Page</h1>
+<br><br>
+
+<h2>JavaScript Alert</h2>
+
+<input id="name" name="enter-name" class="inputs" placeholder="Enter Your Name" type="text">
+<button id ='alertbtn' onclick="displayAlert()">Try it</button>
+<div id="alert_demo">
+</div>
+
+<h2>JavaScript Prompt</h2>
+<button id='promptbtn' onclick="showPrompt()">Try it</button>
+<div id="prompt_demo">
+</div>
+<br><br>
+<h2>JavaScript Confirm Box</h2>
+
+
+<button id='confirmbtn' onclick="myconfirm()">Try it</button>
+<div id="confirm_demo">
+</div>
+
+</body>
+
+</html>
