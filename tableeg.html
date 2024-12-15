@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table with Thead, Tbody, and Tfoot</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tfoot td {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sales Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Q1 Sales</th>
+                <th>Q2 Sales</th>
+                <th>Q3 Sales</th>
+                <th>Q4 Sales</th>
+                <th>Total Sales</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Product A</td>
+                <td>$1,000</td>
+                <td>$1,200</td>
+                <td>$1,500</td>
+                <td>$1,700</td>
+                <td>$5,400</td>
+            </tr>
+            <tr>
+                <td>Product B</td>
+                <td>$2,000</td>
+                <td>$2,200</td>
+                <td>$2,500</td>
+                <td>$2,700</td>
+                <td>$9,400</td>
+            </tr>
+            <tr>
+                <td>Product C</td>
+                <td>$3,000</td>
+                <td>$3,200</td>
+                <td>$3,500</td>
+                <td>$3,700</td>
+                <td>$13,400</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total</td>
+                <td>$6,000</td>
+                <td>$6,600</td>
+                <td>$7,500</td>
+                <td>$8,100</td>
+                <td>$28,200</td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>

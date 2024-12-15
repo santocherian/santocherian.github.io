@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Class Demonstration</title>
+    <style>
+
+	.alert-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .action-btn, .draggable, .droppable, #rightClickBtn, #doubleClickBtn, #clickHold {
+            width: 200px;
+            height: 50px;
+            background-color: lightblue;
+            border: none;
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        .droppable {
+            background-color: lightgreen;
+            width: 250px;
+            height: 200px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .drag-item {
+            background-color: lightcoral;
+            padding: 20px;
+            margin: 10px;
+            display: inline-block;
+            cursor: grab;
+        }
+
+        /* Custom context menu */
+        #contextMenu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            width: 150px;
+        }
+
+        #contextMenu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #contextMenu li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #contextMenu li:hover {
+            background-color: #f1f1f1;
+        }
+
+        #hoverArea {
+            padding: 20px;
+            background-color: lightcoral;
+            width: 200px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Successful drop */
+        .droppable.success {
+            background-color: lightblue;
+            color: white;
+            text-align: center;
+        }
+
+        /* Click and hold target */
+        #clickHoldTarget {
+            width: 200px;
+            height: 100px;
+            background-color: lightpink;
+            text-align: center;
+            line-height: 100px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Action Class Demo</h2>
+	 <!-- Button element with onclick event -->
+    <button class="alert-button" onclick="showAlert()">Click Me</button>
+
+
+    <!-- Double-click button -->
+    <button id="doubleClickBtn">Double Click Me</button>
+
+    <!-- Right-click button -->
+    <button id="rightClickBtn">Right Click Me</button>
+
+    <!-- Context Menu -->
+    <div id="contextMenu">
+        <ul>
+            <li id="option1">Option 1</li>
+            <li id="option2">Option 2</li>
+            <li id="option3">Option 3</li>
+        </ul>
+    </div>
+
+    <!-- Hover Area -->
+    <div id="hoverArea">Hover over me!</div>
+
+    <!-- Drag and Drop Example -->
+    <h3>Drag and Drop Items Below</h3>
+    <div class="drag-item" id="dragItem1" draggable="true">Item 1</div>
+    <div class="drag-item" id="dragItem2" draggable="true">Item 2</div>
+    <div class="drag-item" id="dragItem3" draggable="true">Item 3</div>
+
+    <!-- Droppable Target Areas -->
+    <div class="droppable" id="droppable1">Drop here (Target 1)</div>
+    <div class="droppable" id="droppable2">Drop here (Target 2)</div>
+
+    <!-- Click and Hold Area -->
+    <h3>Click and Hold Target</h3>
+    <div id="clickHoldTarget">Hold Me!</div>
+
+    <script>
+        function showAlert() {
+            alert('Button was clicked!');
+        }
+        // Right-click (context-click) handling
+        document.getElementById("rightClickBtn").addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+            var contextMenu = document.getElementById("contextMenu");
+            contextMenu.style.display = "block";
+            contextMenu.style.top = event.pageY + "px";
+            contextMenu.style.left = event.pageX + "px";
+        });
+
+        document.getElementById("option2").addEventListener("click", function() {
+            alert("Option 2 selected!");
+            document.getElementById("contextMenu").style.display = "none";
+        });
+
+        window.addEventListener("click", function() {
+            document.getElementById("contextMenu").style.display = "none";
+        });
+
+        // Double-click handling
+        document.getElementById("doubleClickBtn").addEventListener("dblclick", function() {
+            alert("Button was double-clicked!");
+        });
+
+        // Hover event handling
+        document.getElementById("hoverArea").addEventListener("mouseenter", function() {
+            this.style.backgroundColor = "yellow";
+            this.innerText = "You're hovering!";
+        });
+
+        document.getElementById("hoverArea").addEventListener("mouseleave", function() {
+            this.style.backgroundColor = "lightcoral";
+            this.innerText = "Hover over me!";
+        });
+
+        // Drag and Drop handling
+        function handleDragStart(e) {
+            e.dataTransfer.setData("text/plain", e.target.id);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault(); // Necessary to allow the drop
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const id = e.dataTransfer.getData("text");
+            const draggableElement = document.getElementById(id);
+            const dropZone = e.target;
+            dropZone.appendChild(draggableElement);
+            dropZone.classList.add("success");
+            dropZone.innerHTML = "Dropped " + draggableElement.textContent;
+        }
+
+        const dragItems = document.querySelectorAll(".drag-item");
+        dragItems.forEach(item => {
+            item.addEventListener("dragstart", handleDragStart);
+        });
+
+        const dropZones = document.querySelectorAll(".droppable");
+        dropZones.forEach(zone => {
+            zone.addEventListener("dragover", handleDragOver);
+            zone.addEventListener("drop", handleDrop);
+        });
+
+    </script>
+	<br<br>
+    <h2>Copy and Paste Simulation</h2>
+
+    <label for="inputField1">Enter Text: </label>
+    <input type="text" id="inputField1" placeholder="Type something"><br><br>
+
+    <label for="inputField2">Pasted Text: </label>
+    <input type="text" id="inputField2" placeholder="Paste here">
+</body>
+</html>
